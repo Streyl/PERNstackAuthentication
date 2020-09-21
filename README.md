@@ -1,4 +1,4 @@
-﻿# PERNstackAuthentication
+﻿# TicketTracerForServiceCenter
 To start the program, please Frist of all check the database settings. This program was written to work for PostgresDB.
 Check the name of the database nad if it exists.
 
