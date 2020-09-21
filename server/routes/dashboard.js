@@ -22,4 +22,15 @@ router.get("/", authorization, async (req,res) => {
     }
 });
 
+router.get("/", async (req,res) =>{
+    try{
+        const list = await pool.query("SELECT * FROM users");
+        res. json(list.rows);
+    } catch(err){
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
+
 module.exports = router;

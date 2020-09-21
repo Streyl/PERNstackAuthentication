@@ -1,48 +1,47 @@
-import React, {Fragment, useState, useEffect} from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
+import List from "../components/List";
+const Dashboard = ({ setAuth }) => {
+  const [name, setName] = useState("");
 
-const Dashboard = ({setAuth}) => {
-
-const [name, setName] = useState("");
-
-async function getName() {
+  async function getName() {
     try {
-        const response = await fetch("http://localhost:5000/dashboard/",{
-            method: "GET",
-            headers:{token: localStorage.token }
-        });
+      const response = await fetch("http://localhost:5000/dashboard/", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
 
-        const parseRes = await response.json();
-        
+      const parseRes = await response.json();
 
-        setName(parseRes.user_name);
-
+      setName(parseRes.user_name);
     } catch (err) {
-        console.error(err.message);
+      console.error(err.message);
     }
-}
+  }
 
-const logout = (e) => {
+  const logout = (e) => {
     e.preventDefault();
     localStorage.removeItem("token");
     setAuth(false);
     toast.success("Logged out successfully!");
-}
+  };
 
-useEffect(() => {
-    getName()
-},[])
+  useEffect(() => {
+    getName();
+  }, []);
 
-    return (
-        <Fragment>
-            <h1>Dashboard {name}</h1>
-            <button className="btn btn-primary" onClick={e => logout(e)}>
-                Logout
-            </button>
-            </Fragment>
-    );
+  return (
+    <Fragment>
+      <h1>Dashboard {name}</h1>
+      <div className="body">
+        <List />
+      </div>
+      <button className="btn btn-primary" onClick={(e) => logout(e)}>
+        Logout
+      </button>
+    </Fragment>
+  );
 };
-
 
 export default Dashboard;
