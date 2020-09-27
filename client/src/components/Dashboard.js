@@ -1,6 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+//components
 
+import List_User_Tickets from "./List_User_Tickets";
+import List_User_Tickets_Closed from "./List_User_Tickets_Closed";
 
 const Dashboard = ({ setAuth }) => {
   const [name, setName] = useState("");
@@ -33,14 +37,26 @@ const Dashboard = ({ setAuth }) => {
 
   return (
     <Fragment>
+      <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0">Diploma!</a>
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <button className="btn btn-primary" onClick={(e) => logout(e)}>
+              Logout
+            </button>
+          </li>
+        </ul>
+      </nav>
       <h1>Welcome User {name}</h1>
-      <div className="body">
-      </div>
-      <button className="btn btn-primary" onClick={(e) => logout(e)}>
-        Logout
-      </button>
+      <List_User_Tickets></List_User_Tickets>
+      <List_User_Tickets_Closed></List_User_Tickets_Closed>
     </Fragment>
   );
 };
+
+/*
+<List_User_Tickets></List_User_Tickets>
+        <List_User_Tickets_Closed></List_User_Tickets_Closed>
+*/
 
 export default Dashboard;
