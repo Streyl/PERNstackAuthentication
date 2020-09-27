@@ -31,22 +31,17 @@ const List_User_Tickets = ({ setAuth }) => {
 
   return (
     <Fragment>
-      <h1> List of User Tickets OPEN</h1>{" "}
-      <table id="userList" className="table mt-5 text-center">
+      <h1 class="h2"> List of User Tickets Open</h1>{" "}
+      <div class="table-responsive">
+      <table id="userList" class="table table-bordered">
         <thead>
           <tr>
-            <th> ID </th>
-            <th> ID OWNER </th>
-            <th> ID ASSIGNED </th>
-            <th> ID ISSUE </th>
-            <th> INFORMATION </th>
-            <th> DATE OPEN </th>
-            <th> DATE CLOSED </th>
-            <th> STATUS </th>
-            <th> PRIORITY </th>
-            <th> STATUS </th>
-            <th> OPEN </th>
-            <th> Edit </th>
+            <th> Name </th>
+            <th> Infromation </th>
+            <th> Date Created </th>
+            <th> Priority </th>
+            <th>  </th>
+            <th>  </th>
           </tr>
         </thead>
         <tbody>
@@ -64,26 +59,21 @@ const List_User_Tickets = ({ setAuth }) => {
                     </tr>  */}
           {tickets.map((ticket) => (
             <tr>
-              <td>{ticket.ticket_id}</td>
-              <td>{ticket.ticket_owner_id}</td>
-              <td>{ticket.ticket_assigned_employee_id}</td>
-              <td>{ticket.ticket_issue_id}</td>
-              <td>{ticket.ticket_information}</td>
+              <td>{ticket.user_first_name + " " + ticket.user_second_name}</td>
+              <td>{ticket.ticket_information }</td>
               <td>{ticket.ticket_date_open}</td>
-              <td>{ticket.ticket_date_closed}</td>
-              <td>{ticket.ticket_status}</td>
               <td>{ticket.ticket_priority}</td>
-              <td>{ticket.ticket_rating}</td>
               <td>
                 <Open_User_Ticket ticket={ticket}></Open_User_Ticket>
               </td>
               <td>
-                <Edit_User_Ticket></Edit_User_Ticket>
+                <Edit_User_Ticket ticket={ticket}></Edit_User_Ticket>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      </div>
     </Fragment>
   );
 };

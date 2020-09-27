@@ -1,0 +1,89 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _Input = _interopRequireDefault(require("./Input"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+const DateTimePickerInput = _react.default.forwardRef((_ref, ref) => {
+  let {
+    value,
+    formatter,
+    editing,
+    editFormat,
+    displayFormat,
+    localizer,
+    parse,
+    onChange,
+    onBlur,
+    disabled,
+    readOnly
+  } = _ref,
+      props = _objectWithoutProperties(_ref, ["value", "formatter", "editing", "editFormat", "displayFormat", "localizer", "parse", "onChange", "onBlur", "disabled", "readOnly"]);
+
+  const needsFlush = (0, _react.useRef)(false);
+  const nextTextValue = (0, _react.useMemo)(() => value instanceof Date && isValid(value) ? localizer.formatDate(value, formatter, editing ? editFormat : displayFormat) : '', [value, formatter, localizer, displayFormat, editing, editFormat]);
+  const lastValueFromProps = (0, _react.useRef)(nextTextValue);
+  const [textValue, setTextValue] = (0, _react.useState)(nextTextValue);
+
+  if (lastValueFromProps.current !== nextTextValue) {
+    lastValueFromProps.current = nextTextValue;
+    setTextValue(nextTextValue);
+  }
+
+  const handleBlur = event => {
+    if (onBlur) onBlur(event);
+
+    if (needsFlush.current) {
+      let date = parse(event.target.value);
+      const dateIsInvalid = event.target.value != '' && date == null;
+
+      if (dateIsInvalid) {
+        setTextValue('');
+      }
+
+      needsFlush.current = false;
+      onChange(date, event.target.value);
+    }
+  };
+
+  const handleChange = ({
+    target
+  }) => {
+    needsFlush.current = true;
+    setTextValue(target.value);
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_Input.default, Object.assign({}, props, {
+    type: "text",
+    ref: ref,
+    className: "rw-widget-input",
+    value: textValue,
+    disabled: disabled,
+    readOnly: readOnly,
+    onChange: handleChange,
+    onBlur: handleBlur
+  }));
+});
+
+DateTimePickerInput.displayName = 'DateTimePickerInput';
+var _default = DateTimePickerInput;
+exports.default = _default;
+
+function isValid(d) {
+  return !isNaN(d.getTime());
+}

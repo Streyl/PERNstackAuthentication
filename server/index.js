@@ -18,6 +18,7 @@ app.use("/auth", require("./routes/jwtAuth"));
 
 app.use("/dashboard", require("./routes/dashboard")); 
 
+
 //dashboard_admin route
 
 app.use("/dashboard_admin", require("./routes/dashboard_admin")); 

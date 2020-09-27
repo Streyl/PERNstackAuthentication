@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 
-const Open_User_Ticket = ({ ticket }) => {
+const Open_User_Ticket = ({ ticket, setAuth }) => {
   const [info, setInfo] = useState([]);
 
   const getInfo = async () => {

@@ -41,7 +41,7 @@ const Login_Admin = ({ setAuth }) => {
   return (
     <Fragment>
       <h1 className="text-center my-5">Login Admin</h1>
-      <form onSubmit={onSubmitForm}>
+      <form className="ml-5 mr-5" onSubmit={onSubmitForm}>
         <input
           type="email"
           name="email"
@@ -60,7 +60,7 @@ const Login_Admin = ({ setAuth }) => {
         />
         <button className="btn btn-success btn-block">Submit</button>
       </form>
-      <Link to="/login">Back to user Login</Link>
+      <Link className="ml-5" to="/login">Back to user Login</Link>
     </Fragment>
   );
 };

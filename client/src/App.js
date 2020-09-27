@@ -54,7 +54,7 @@ function App() {
   return (
     <Fragment>
       <Router>
-        <div className="container">
+        <div className="container-fluid">
           <Switch>
             <Route
               exact

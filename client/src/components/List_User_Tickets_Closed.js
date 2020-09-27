@@ -37,9 +37,9 @@ const List_User_Tickets_Closed = ({ setAuth }) => {
 
     return(
         <Fragment>
-            <h1> List of User Tickets CLOSED </h1>
-            {" "}
-            <table id="userList" className="table table-dark mt-5 text-center">
+            <h1 class="h2"> List of User Tickets CLosed</h1>{" "}
+            <div class="table-responsive">
+            <table id="userList" class="table table-dark table-sm">
                 <thead>
                     <tr>
                         <th> ID </th>
@@ -83,7 +83,7 @@ const List_User_Tickets_Closed = ({ setAuth }) => {
                     ))}
                 </tbody>
             </table>
-            
+            </div>
         </Fragment>
     );
 };

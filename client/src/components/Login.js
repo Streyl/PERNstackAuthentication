@@ -41,7 +41,7 @@ const Login = ({ setAuth }) => {
   return (
     <Fragment>
       <h1 className="text-center my-5">Login</h1>
-      <form onSubmit={onSubmitForm}>
+      <form className="ml-5 mr-5" onSubmit={onSubmitForm}>
         <input
           type="email"
           name="email"
@@ -60,8 +60,8 @@ const Login = ({ setAuth }) => {
         />
         <button className="btn btn-success btn-block">Submit</button>
       </form>
-      <Link to="/register">Register</Link>
-      <Link to="/login_admin">Login Admin</Link>
+      <Link className="ml-5" to="/register">Register</Link>
+      <Link className="ml-2" to="/login_admin">Login Admin</Link>
     </Fragment>
   );
 };

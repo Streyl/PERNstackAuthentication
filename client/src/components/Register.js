@@ -46,7 +46,7 @@ const Register = ({ setAuth }) => {
   return (
     <Fragment>
       <h1 className="text-center my-5">Register</h1>
-      <form onSubmit={onSubmitForm}>
+      <form className="ml-5 mr-5" onSubmit={onSubmitForm}>
         <input
           type="email"
           name="email"
@@ -97,7 +97,7 @@ const Register = ({ setAuth }) => {
         />
         <button className="btn btn-success btn-block">Submit</button>
       </form>
-      <Link to="/login">Login</Link>
+      <Link className="ml-5" to="/login">Login</Link>
     </Fragment>
   );
 };

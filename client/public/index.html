@@ -33,7 +33,7 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root" ></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -57,5 +57,26 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+
+    <link href="dist/css/react-widgets.css" rel="stylesheet"/>
+
+<script src="http://fb.me/react-15.5.5.js"></script>
+<script src="http://fb.me/react-dom-15.5.0.js"></script>
+<script src='node_modules/react-widgets/dist/react-widgets.js'></script>
+<script>
+  function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+  </script>
+<script>
+  var DropdownList = ReactWidgets.DropDownlist;
+
+  ReactDOM.render(<DropdownList/>, document.getElementById('app-root'))
+</script>
   </body>
 </html>
