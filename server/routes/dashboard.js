@@ -24,7 +24,7 @@ router.get("/tickets", authorization, async (req,res) => {
     try {
         //const allTickets = await pool.query("SELECT ticket_id, ticket_owner_id, ticket_assigned_employee_id, ticket_issue_id, ticket_information, TO_CHAR(ticket_date_open, 'dd/mm/yyyy'), TO_CHAR(ticket_date_closed, 'dd/mm/yyyy'), ticket_status, ticket_priority, ticket_rating FROM tickets WHERE ticket_owner_id = $1", [req.user]);
         //const allTickets = await pool.query("SELECT * FROM tickets WHERE ticket_owner_id = $1 AND ticket_status !='closed'", [req.user]);
-        const allTickets = await pool.query("Select * FROM tickets JOIN users ON tickets.ticket_owner_id = users.user_id JOIN issues ON issues.issue_id = ticket_issue_id JOIN employees ON employees.employee_id =ticket_assigned_employee_id WHERE ticket_status !='CLOSED' AND ticket_owner_id = $1", [req.user]);
+        const allTickets = await pool.query("Select *, TO_CHAR(ticket_date_open, 'dd/mm/yyyy') ticket_date_open FROM tickets JOIN users ON tickets.ticket_owner_id = users.user_id JOIN issues ON issues.issue_id = ticket_issue_id JOIN employees ON employees.employee_id =ticket_assigned_employee_id WHERE ticket_status !='CLOSED' AND ticket_owner_id = $1 ORDER BY 1", [req.user]);
         res.json(allTickets.rows);
     } catch (err) {
         console.error(err.message);
@@ -35,7 +35,7 @@ router.get("/tickets", authorization, async (req,res) => {
 router.get("/tickets_closed", authorization, async (req,res) => {
     try {
         //const allTickets = await pool.query("SELECT ticket_id, ticket_owner_id, ticket_assigned_employee_id, ticket_issue_id, ticket_information, TO_CHAR(ticket_date_open, 'dd/mm/yyyy'), TO_CHAR(ticket_date_closed, 'dd/mm/yyyy'), ticket_status, ticket_priority, ticket_rating FROM tickets WHERE ticket_owner_id = $1", [req.user]);
-        const allTickets = await pool.query("SELECT * FROM tickets WHERE ticket_owner_id = $1 AND ticket_status='closed'", [req.user]);
+        const allTickets = await pool.query("Select *, TO_CHAR(ticket_date_open, 'dd/mm/yyyy') ticket_date_open, TO_CHAR(ticket_date_closed, 'dd/mm/yyyy') ticket_date_closed FROM tickets JOIN users ON tickets.ticket_owner_id = users.user_id JOIN issues ON issues.issue_id = ticket_issue_id JOIN employees ON employees.employee_id =ticket_assigned_employee_id WHERE ticket_status ='CLOSED' AND ticket_owner_id = $1 ORDER BY 1", [req.user]);
         res.json(allTickets.rows);
     } catch (err) {
         console.error(err.message);
@@ -49,9 +49,8 @@ router.get("/tickets/:id", authorization, async(req,res) =>
 {
     try {
         const { id } = req.params;
-        const ticket = await pool.query("Select * FROM tickets WHERE ticket_id = $1", [
-            id
-        ]);
+        //const ticket = await pool.query("Select * FROM tickets WHERE ticket_id = $1", [ id ]);
+        const ticket = await pool.query("Select * FROM tickets JOIN users ON tickets.ticket_owner_id = users.user_id JOIN issues ON issues.issue_id = ticket_issue_id JOIN employees ON employees.employee_id = ticket_assigned_employee_id WHERE ticket_id = $1 ", [ id ]);
         res.json(ticket.rows[0]);
     } catch (err) {
         console.error(err.message);
@@ -75,15 +74,16 @@ router.put("/tickets/:id", authorization, async(req,res) =>{
 
 //create a ticket
 
-router.post("/tickets", async (req, res) => {
+router.post("/tickets", authorization, async (req, res) => {
     try {
-      const { id_owner, id_employee, id_issue, info, priority  } = req.body;
+      const { id, id_employee, id_issue, info, priority  } = req.body;
       const newTicket = await pool.query(
-        "INSERT INTO tickets (ticket_owner_id, ticket_assigned_employee_id, ticket_issue_id, ticket_information, ticket_priority ) VALUES($1,$2,$3,$4,$5) RETURNING *",
-        [id_owner, id_employee, id_issue, info, priority ]
+        "INSERT INTO tickets (ticket_owner_id, ticket_assigned_employee_id, ticket_issue_id, ticket_information, ticket_priority ) VALUES($1,2,1,$2,$3) RETURNING *",
+        [id, info, priority ]
       );
+      console.log(req.user_id);
   
-      res.json(newTicket.rows[0]);
+      res.json("Ticket was created");
     } catch (err) {
       console.error(err.message);
     }

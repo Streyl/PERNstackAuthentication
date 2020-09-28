@@ -19,6 +19,35 @@ code {
     margin-left: auto;
 }
 
+.red{
+  background-color: rgb(226, 0, 0);
+  font-size: large;
+  color: white;
+  margin-top: 5px;
+  text-align: center;
+}
+.green{
+  background-color: rgb(42, 143, 42);
+  color: white;
+  font-size: large;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.yellow{
+  background-color: rgb(245, 245, 22);
+  font-size: large;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.blue{
+  background-color: rgb(1, 1, 160);
+  color: white;
+  font-size: large;
+  margin-top: 5px;
+  text-align: center;
+}
 
 
 .Fragment {

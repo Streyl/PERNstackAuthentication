@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+
 //components
 
 import List_User_Tickets from "./List_User_Tickets";
@@ -32,7 +33,7 @@ const Dashboard = ({ setAuth }) => {
     id_owner: 9,
     id_employee: 1,
     id_issue: 1,
-    info: "TEST",
+    info: "",
     priority: 2,
   });
 
@@ -43,18 +44,22 @@ const Dashboard = ({ setAuth }) => {
   };
 
   const onSubmitForm = async (e) => {
+
     e.preventDefault();
-
     try {
-      const body = { id_owner, id_employee, id_issue, info, priority };
+      const myHeaders = new Headers();
 
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("token", localStorage.token);
+      console.log(id);
+      const body = { id, id_employee, id_issue, info, priority };
       const response = await fetch("http://localhost:5000/dashboard/tickets", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: myHeaders,
         body: JSON.stringify(body),
       });
-
       window.location = "/dashboard";
+      toast.success("Ticket Created!");
     } catch (err) {
       console.error(err.message);
     }
@@ -108,7 +113,7 @@ const Dashboard = ({ setAuth }) => {
           class="navbar-brand bg-dark col-sm-3 col-md-2 mr-0"
           href="/dashboard"
         >
-          Diploma!
+          Diploma! id:user{id} id owner:{id_owner}
         </a>
         <h1 class="text-white text-right">Welcome User {name}</h1>
         <ul class="navbar-nav px-3">
@@ -229,10 +234,9 @@ const Dashboard = ({ setAuth }) => {
           </nav>
 
           <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-              <h1 class="h2">Dashboard</h1>
+
               <div class="btn-toolbar mb-2 mb-md-0"></div>
-            </div>
+
 
 
             <div > {showScrollView ? (<List_User_Tickets />) : null} </div>
@@ -259,6 +263,9 @@ const Dashboard = ({ setAuth }) => {
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">Create New Ticket</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
             </div>
 
             <div class="modal-body">
@@ -273,13 +280,7 @@ const Dashboard = ({ setAuth }) => {
                   value={info}
                   onChange={(e) => setInputs(e.target.value)}
                 />
-                <input
-                  id="inputtext"
-                  type="nimber"
-                  className="form-control mt-0"
-                  value="9"
-                  onChange={(e) => setInputs(e.target.value)}
-                />
+                
 
                 <button className="btn btn-success">Submit</button>
               </form>

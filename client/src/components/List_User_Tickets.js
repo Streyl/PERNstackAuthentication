@@ -27,17 +27,16 @@ const List_User_Tickets = ({ setAuth }) => {
     getTickets();
   }, []);
 
-  console.log(tickets);
 
   return (
     <Fragment>
-      <h1 class="h2"> List of User Tickets Open</h1>{" "}
+      <h1 class="h2"> Dashboard: Open Tickets</h1>{" "}
       <div class="table-responsive">
       <table id="userList" class="table table-bordered">
         <thead>
           <tr>
             <th> Name </th>
-            <th> Infromation </th>
+            <th> Issue </th>
             <th> Date Created </th>
             <th> Priority </th>
             <th>  </th>
@@ -58,11 +57,16 @@ const List_User_Tickets = ({ setAuth }) => {
                         <td> Status </td> 
                     </tr>  */}
           {tickets.map((ticket) => (
-            <tr>
+            <tr key={ticket.ticket_id}>
               <td>{ticket.user_first_name + " " + ticket.user_second_name}</td>
-              <td>{ticket.ticket_information }</td>
+              <td>{ticket.issue_type }</td>
               <td>{ticket.ticket_date_open}</td>
-              <td>{ticket.ticket_priority}</td>
+              <td className={
+                (ticket.ticket_priority =='Critical') ? "red": (ticket.ticket_priority =='High') ? "yellow": (ticket.ticket_priority =='Medium') ? "blue": "green"
+              
+            }
+              
+              >{ticket.ticket_priority}</td>
               <td>
                 <Open_User_Ticket ticket={ticket}></Open_User_Ticket>
               </td>

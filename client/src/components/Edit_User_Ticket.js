@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-
+import { toast } from "react-toastify";
 const Edit_User_Ticket = ({ setAuth, ticket }) => {
   //edit description function
 
@@ -10,17 +10,22 @@ const Edit_User_Ticket = ({ setAuth, ticket }) => {
   const updateDescription = async (e) => {
     e.preventDefault();
     try {
+      const myHeaders = new Headers();
+
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("token", localStorage.token);
       const body = { info };
       const response = await fetch(
         `http://localhost:5000/dashboard/tickets/${ticket.ticket_id}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: myHeaders,
           body: JSON.stringify(body),
         }
       );
 
       window.location = "/dashboard";
+      toast.success("Editted successfully!");
     } catch (err) {
       console.error(err.message);
     }
