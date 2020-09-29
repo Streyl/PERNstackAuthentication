@@ -1,11 +1,12 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { MDBDatatable } from 'mdbreact';
+import { MDBDatatable } from "mdbreact";
 import { toast } from "react-toastify";
 
 import moment from "moment";
 import Edit_User_Ticket from "./Edit_User_Ticket";
 import Open_User_Ticket from "./Open_User_Ticket";
 import Rate_User_Ticket from "./Rate_User_Ticket";
+import Rate_Closed_Ticket from "./Rate_Closed_Ticket";
 
 const List_User_Tickets_Closed = ({ setAuth }) => {
   const [tickets, setTickets] = useState([]);
@@ -41,13 +42,13 @@ const List_User_Tickets_Closed = ({ setAuth }) => {
         <table id="userList" class="table table-bordered">
           <thead>
             <tr>
-              <th> Name </th>
-              <th> Issue </th>
-              <th> Date Created </th>
-              <th> Date Closed </th>
-              <th> Rating </th>
-              <th> </th>
-              <th> </th>
+              <th class="text-center mt-5 strong"> Name </th>
+              <th class="text-center mt-5 strong"> Issue </th>
+              <th class="text-center mt-5 strong"> Date Created </th>
+              <th class="text-center mt-5 strong"> Date Closed </th>
+              <th class="text-center mt-5 strong"> Rating </th>
+              <th class="text-center mt-5 strong"> </th>
+              <th class="text-center mt-5 strong"> </th>
             </tr>
           </thead>
           <tbody>
@@ -65,18 +66,39 @@ const List_User_Tickets_Closed = ({ setAuth }) => {
                     </tr>  */}
             {tickets.map((ticket) => (
               <tr key={ticket.ticket_id}>
-                <td>
+                <td class="text-center mt-5 strong">
                   {ticket.user_first_name + " " + ticket.user_second_name}
                 </td>
-                <td>{ticket.issue_type}</td>
-                <td>{ticket.ticket_date_open}</td>
-                <td>{ticket.ticket_date_closed}</td>
-                <td>{ticket.ticket_rating}</td>
-                <td>
+                <td class="text-center mt-5 strong">{ticket.issue_type}</td>
+                <td class="text-center mt-5 strong">
+                  {ticket.ticket_date_open}
+                </td>
+                <td class="text-center mt-5 strong">
+                  {ticket.ticket_date_closed}
+                </td>
+                <td
+                  class="text-center mt-5 strong"
+                  className={
+                    ticket.ticket_rating == 1
+                      ? "red_rate"
+                      : ticket.ticket_rating == 2
+                      ? "brown_rate"
+                      : ticket.ticket_rating == 3
+                      ? "yellow_rate"
+                      : ticket.ticket_rating == 4
+                      ? "lime_rate"
+                      : ticket.ticket_rating == 5
+                      ? "green_rate"
+                      : "white"
+                  }
+                >
+                  {ticket.ticket_rating}
+                </td>
+                <td class="text-center mt-5 strong">
                   <Open_User_Ticket ticket={ticket}></Open_User_Ticket>
                 </td>
-                <td>
-                  <Rate_User_Ticket ticket={ticket}></Rate_User_Ticket>
+                <td class="text-center mt-5 strong">
+                  <Rate_Closed_Ticket ticket={ticket}></Rate_Closed_Ticket>
                 </td>
               </tr>
             ))}

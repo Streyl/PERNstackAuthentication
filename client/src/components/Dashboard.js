@@ -375,10 +375,10 @@ const Dashboard = ({ setAuth }) => {
                     value={priority}
                     onChange={(e) => setPriority(e.target.value)}
                   >
-                    <option>Critical</option>
-                    <option>High</option>
-                    <option>Medium</option>
                     <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                    <option>Critical</option>
                   </select>
                 </div>
 

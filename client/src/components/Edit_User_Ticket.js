@@ -4,8 +4,7 @@ const Edit_User_Ticket = ({ setAuth, ticket }) => {
   //edit description function
 
   const [info, setInfo] = useState(ticket.ticket_information);
-  const [priority, setPriority] = useState([ticket.ticket_priority]);
-  const [rating, setRating] = useState([ticket.ticket_rating]);
+  const [priority, setPriority] = useState(ticket.ticket_priority);
 
   const updateDescription = async (e) => {
     e.preventDefault();
@@ -14,7 +13,7 @@ const Edit_User_Ticket = ({ setAuth, ticket }) => {
 
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("token", localStorage.token);
-      const body = { info };
+      const body = { info, priority };
       const response = await fetch(
         `http://localhost:5000/dashboard/tickets/${ticket.ticket_id}`,
         {
@@ -35,7 +34,7 @@ const Edit_User_Ticket = ({ setAuth, ticket }) => {
     <Fragment>
       <button
         type="button"
-        class="btn btn-info btn-lg"
+        class="btn btn-warning btn-lg"
         data-toggle="modal"
         data-target={`#idd${ticket.ticket_id}`}
       >
@@ -43,21 +42,50 @@ const Edit_User_Ticket = ({ setAuth, ticket }) => {
       </button>
 
       <div id={`idd${ticket.ticket_id}`} class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">EDIT</h4>
+              <h4 class="modal-title">Edit Ticket</h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
 
             <div class="modal-body">
-              <input
-                type="text"
-                className="form-control"
-                value={info}
-                onChange={(e) => setInfo(e.target.value)}
-              />
+              <div class="row ml-5 mr-5">
+              <labe for="inputtext" className="mt-1">
+                    Information:
+                  </labe>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={info}
+                  onChange={(e) => setInfo(e.target.value)}
+                />
+              </div>
+              
+              <div class="row ml-5 mr-5">
+                  <labe for="inputtext" className="mt-1">
+                    Priority:
+                  </labe>
+                  <select
+                    class="custom-select"
+                    id="myList"
+                    value={priority}
+                    onChange={(e) => setPriority(e.target.value)}
+                  >
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                    <option>Critical</option>
+                  </select>
+                </div>
             </div>
-
             <div class="modal-footer">
               <button
                 type="button"

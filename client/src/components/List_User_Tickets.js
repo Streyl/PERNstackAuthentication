@@ -34,12 +34,12 @@ const List_User_Tickets = ({ setAuth }) => {
         <table id="userList" class="table table-bordered">
           <thead>
             <tr>
-              <th> Name </th>
-              <th> Issue </th>
-              <th> Date Created </th>
-              <th> Priority </th>
-              <th> </th>
-              <th> </th>
+              <th class="text-center mt-5 strong"> Name </th>
+              <th class="text-center mt-5 strong"> Issue </th>
+              <th class="text-center mt-5 strong"> Date Created </th>
+              <th class="text-center mt-5 strong"> Priority </th>
+              <th class="text-center mt-5 strong"> </th>
+              <th class="text-center mt-5 strong"> </th>
             </tr>
           </thead>
           <tbody>
@@ -57,12 +57,12 @@ const List_User_Tickets = ({ setAuth }) => {
                     </tr>  */}
             {tickets.map((ticket) => (
               <tr key={ticket.ticket_id}>
-                <td>
+                <td class="text-center mt-5 strong">
                   {ticket.user_first_name + " " + ticket.user_second_name}
                 </td>
-                <td>{ticket.issue_type}</td>
-                <td>{ticket.ticket_date_open}</td>
-                <td
+                <td class="text-center mt-5 strong">{ticket.issue_type}</td>
+                <td class="text-center mt-5 strong"> {ticket.ticket_date_open}</td>
+                <td class="text-center mt-5 strong"
                   className={
                     ticket.ticket_priority == "Critical"
                       ? "red"
@@ -70,15 +70,17 @@ const List_User_Tickets = ({ setAuth }) => {
                       ? "yellow"
                       : ticket.ticket_priority == "Medium"
                       ? "blue"
-                      : "green"
+                      : ticket.ticket_priority == "Low"
+                      ? "green"
+                      : "white"
                   }
                 >
                   {ticket.ticket_priority}
                 </td>
-                <td>
+                <td class="text-center mt-5 strong">
                   <Open_User_Ticket ticket={ticket}></Open_User_Ticket>
                 </td>
-                <td>
+                <td class="text-center mt-5 strong">
                   <Edit_User_Ticket ticket={ticket}></Edit_User_Ticket>
                 </td>
               </tr>
