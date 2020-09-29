@@ -40,8 +40,9 @@ const Login = ({ setAuth }) => {
 
   return (
     <Fragment>
-      <h1 className="text-center my-5">Login</h1>
-      <form className="ml-5 mr-5" onSubmit={onSubmitForm}>
+      
+      <form className="box" onSubmit={onSubmitForm}>
+        <h1 className="text-center my-5">Login</h1>
         <input
           type="email"
           name="email"
@@ -58,7 +59,7 @@ const Login = ({ setAuth }) => {
           value={password}
           onChange={(e) => onChange(e)}
         />
-        <button className="btn btn-success btn-block">Submit</button>
+        <button className="button_new">Submit</button>
       </form>
       <Link className="ml-5" to="/register">Register</Link>
       <Link className="ml-2" to="/login_admin">Login Admin</Link>

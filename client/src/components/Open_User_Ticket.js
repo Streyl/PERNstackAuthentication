@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 
 const Open_User_Ticket = ({ ticket, setAuth }) => {
+  
   const [info, setInfo] = useState([]);
 
   const getInfo = async () => {
@@ -75,7 +76,7 @@ const Open_User_Ticket = ({ ticket, setAuth }) => {
                     <dd>
                       - {info.employee_first_name} {info.employee_second_name}
                     </dd>
-                    <dt>Employee Name:</dt>
+                    <dt>Employee Postinion:</dt>
                     <dd>- {info.employee_position}</dd>
                     <dt>Employee Email:</dt>
                     <dd>- {info.employee_email}</dd>

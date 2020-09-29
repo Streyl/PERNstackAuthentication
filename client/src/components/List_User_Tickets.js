@@ -27,24 +27,23 @@ const List_User_Tickets = ({ setAuth }) => {
     getTickets();
   }, []);
 
-
   return (
     <Fragment>
       <h1 class="h2"> Dashboard: Open Tickets</h1>{" "}
       <div class="table-responsive">
-      <table id="userList" class="table table-bordered">
-        <thead>
-          <tr>
-            <th> Name </th>
-            <th> Issue </th>
-            <th> Date Created </th>
-            <th> Priority </th>
-            <th>  </th>
-            <th>  </th>
-          </tr>
-        </thead>
-        <tbody>
-          {/*<tr>
+        <table id="userList" class="table table-bordered">
+          <thead>
+            <tr>
+              <th> Name </th>
+              <th> Issue </th>
+              <th> Date Created </th>
+              <th> Priority </th>
+              <th> </th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody>
+            {/*<tr>
                         <td> ID </td>
                         <td> ID </td>
                         <td> ID </td>
@@ -56,27 +55,36 @@ const List_User_Tickets = ({ setAuth }) => {
                         <td> Priority </td>
                         <td> Status </td> 
                     </tr>  */}
-          {tickets.map((ticket) => (
-            <tr key={ticket.ticket_id}>
-              <td>{ticket.user_first_name + " " + ticket.user_second_name}</td>
-              <td>{ticket.issue_type }</td>
-              <td>{ticket.ticket_date_open}</td>
-              <td className={
-                (ticket.ticket_priority =='Critical') ? "red": (ticket.ticket_priority =='High') ? "yellow": (ticket.ticket_priority =='Medium') ? "blue": "green"
-              
-            }
-              
-              >{ticket.ticket_priority}</td>
-              <td>
-                <Open_User_Ticket ticket={ticket}></Open_User_Ticket>
-              </td>
-              <td>
-                <Edit_User_Ticket ticket={ticket}></Edit_User_Ticket>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            {tickets.map((ticket) => (
+              <tr key={ticket.ticket_id}>
+                <td>
+                  {ticket.user_first_name + " " + ticket.user_second_name}
+                </td>
+                <td>{ticket.issue_type}</td>
+                <td>{ticket.ticket_date_open}</td>
+                <td
+                  className={
+                    ticket.ticket_priority == "Critical"
+                      ? "red"
+                      : ticket.ticket_priority == "High"
+                      ? "yellow"
+                      : ticket.ticket_priority == "Medium"
+                      ? "blue"
+                      : "green"
+                  }
+                >
+                  {ticket.ticket_priority}
+                </td>
+                <td>
+                  <Open_User_Ticket ticket={ticket}></Open_User_Ticket>
+                </td>
+                <td>
+                  <Edit_User_Ticket ticket={ticket}></Edit_User_Ticket>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </Fragment>
   );

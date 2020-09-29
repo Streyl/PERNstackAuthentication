@@ -19,6 +19,36 @@ router.post("/", authorization, async (req,res) => {
     }
 });
 
+router.get("/employees", authorization, async (req,res) => {
+    try{
+        //req.user has the payload
+        //res.json(req.user)
+
+        const allEmployees = await pool.query("SELECT * FROM employees");
+
+        res.json(allEmployees.rows);
+
+    } catch(err){
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
+router.get("/issues", authorization, async (req,res) => {
+    try{
+        //req.user has the payload
+        //res.json(req.user)
+
+        const allIssues = await pool.query("SELECT * FROM issues");
+
+        res.json(allIssues.rows);
+
+    } catch(err){
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
 //get all open user tickets
 router.get("/tickets", authorization, async (req,res) => {
     try {
@@ -76,12 +106,12 @@ router.put("/tickets/:id", authorization, async(req,res) =>{
 
 router.post("/tickets", authorization, async (req, res) => {
     try {
-      const { id, id_employee, id_issue, info, priority  } = req.body;
+      //const { id_owner, id_employee, id_issue, info, priority  } = req.body;
+      const {info, id_employee, id_issue, priority} = req.body;
       const newTicket = await pool.query(
-        "INSERT INTO tickets (ticket_owner_id, ticket_assigned_employee_id, ticket_issue_id, ticket_information, ticket_priority ) VALUES($1,2,1,$2,$3) RETURNING *",
-        [id, info, priority ]
+        "INSERT INTO tickets (ticket_owner_id, ticket_assigned_employee_id, ticket_issue_id, ticket_information, ticket_priority ) VALUES($1,$2,$3,$4,$5) RETURNING *",
+        [req.user,id_employee, id_issue, info, priority ]
       );
-      console.log(req.user_id);
   
       res.json("Ticket was created");
     } catch (err) {
