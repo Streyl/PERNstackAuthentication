@@ -2,8 +2,6 @@ import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 const Close_Admin_Ticket = ({ setAuth, ticket }) => {
-  //edit description function
-
 
   const closeTicket = async (e) => {
     try {

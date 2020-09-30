@@ -40,7 +40,7 @@ const Login_Admin = ({ setAuth }) => {
 
   return (
     <Fragment>
-      <h1 className="text-center my-5">Login Admin</h1>
+      <h1 className="text-center my-3">Login Admin</h1>
       <form className="ml-5 mr-5" onSubmit={onSubmitForm}>
         <input
           type="email"

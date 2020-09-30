@@ -1,44 +1,47 @@
-CREATE DATABASE jwttutorial;
+CREATE DATABASE diploma1;
 
-
---set extention
-CREATE TABLE users(
-user_id BIGSERIAL PRIMARY KEY,
-user_name VARCHAR(255) NOT NULL,
-user_email VARCHAR(255) NOT NULL,
-user_password VARCHAR(255) NOT NULL
+CREATE TABLE employees(
+employee_id BIGSERIAL PRIMARY KEY,
+employee_email VARCHAR(255) NOT NULL,
+employee_password VARCHAR(255) NOT NULL,
+employee_first_name VARCHAR(255) NOT NULL,
+employee_second_name VARCHAR(255) NOT NULL,
+employee_phone_number VARCHAR(15) NOT NULL,
+employee_position VARCHAR(255) NOT NULL,
+employee_valid BOOLEAN NOT NULL DEFAULT TRUE
 );
-
-INSERT INTO users (user_name, user_email, user_password) VALUES ('Mortimer', 'morty@gmail.com', 'morty123');
-INSERT INTO users (user_name, user_email, user_password) VALUES ('Sherlock', 'sherlock@gmail.com', 'sherlock123');
-INSERT INTO users (user_name, user_email, user_password) VALUES ('Mila', 'alien@gmail.com', 'ALIEN123');
-
-
-
-
-CREATE DATABASE diploma;
-
-CREATE TABLE user_rights(
-    user_rights_id BIGSERIAL PRIMARY KEY,
-    user_rights_text VARCHAR(255) NOT NULL
-);
-
-INSERT INTO user_rights (user_rights_text) VALUES ('Admin');
-INSERT INTO user_rights (user_rights_text) VALUES ('User');
 
 
 CREATE TABLE users(
 user_id BIGSERIAL PRIMARY KEY,
-user_name VARCHAR(255) NOT NULL,
-user_sirname VARCHAR(255) NOT NULL,
 user_email VARCHAR(255) NOT NULL,
 user_password VARCHAR(255) NOT NULL,
-user_active BOOLEAN NOT NULL DEFAULT TRUE,
-rights_id INTEGER NOT NULL DEFAULT 2,
-CONSTRAINT fk_user_rights_id FOREIGN KEY (rights_id) REFERENCES user_rights(user_rights_id)
+user_first_name VARCHAR(255) NOT NULL,
+user_second_name VARCHAR(255) NOT NULL,
+user_phone_number VARCHAR(15) NOT NULL,
+user_address VARCHAR(255) ,
+user_valid BOOLEAN NOT NULL DEFAULT TRUE
 );
 
-INSERT INTO users (user_name, user_sirname, user_email, user_password, rights_id) VALUES ('Alex', 'Kazanzhy', 'alex@gmail.com', 'zknsTBnnz#', 1);
-INSERT INTO users (user_name, user_sirname, user_email, user_password) VALUES ('Amanda', 'Morrison', 'amanda@gmail.com', 'amanda#');
-INSERT INTO users (user_name, user_sirname, user_email, user_password) VALUES ('Boris', 'Morrison', 'boris@gmail.com', 'boris#');
-INSERT INTO users (user_name, user_sirname, user_email, user_active, user_password) VALUES ('Alebert', 'Einstaine', 'albert@gmail.com', false, 'Albert#');
+--Critical, High, Medium, Low
+CREATE TABLE tickets(
+ticket_id BIGSERIAL PRIMARY KEY,
+ticket_owner_id INTEGER NOT NULL,
+ticket_assigned_employee_id INTEGER NOT NULL,
+ticket_issue_id INTEGER NOT NULL,
+ticket_information VARCHAR(255) NOT NULL,
+ticket_date_open DATE NOT NULL DEFAULT CURRENT_DATE,
+ticket_date_closed DATE,
+ticket_status VARCHAR(255) NOT NULL DEFAULT 'PENDING',
+ticket_priority VARCHAR(255) NOT NULL DEFAULT 'Low',  
+ticket_rating INTEGER,
+CONSTRAINT fk_user_id FOREIGN KEY (ticket_owner_id) REFERENCES users(user_id),
+CONSTRAINT fk_employee_id FOREIGN KEY (ticket_assigned_employee_id) REFERENCES employees(employee_id),
+CONSTRAINT fk_issue_id FOREIGN KEY (ticket_issue_id) REFERENCES issues(issue_id)
+);
+
+CREATE TABLE issues(
+issue_id BIGSERIAL PRIMARY KEY,
+issue_type VARCHAR(255) NOT NULL,
+issue_information VARCHAR(255) NOT NULL
+);

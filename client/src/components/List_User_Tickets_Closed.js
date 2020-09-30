@@ -1,11 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { MDBDatatable } from "mdbreact";
-import { toast } from "react-toastify";
 
-import moment from "moment";
-import Edit_User_Ticket from "./Edit_User_Ticket";
 import Open_User_Ticket from "./Open_User_Ticket";
-import Rate_User_Ticket from "./Rate_User_Ticket";
 import Rate_Closed_Ticket from "./Rate_Closed_Ticket";
 
 const List_User_Tickets_Closed = ({ setAuth }) => {

@@ -1,22 +1,23 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 
 //components
 
 import List_User_Tickets from "./List_User_Tickets";
 import List_User_Tickets_Closed from "./List_User_Tickets_Closed";
+import List_Employees_User from "./List_Employees_User";
 
 const Dashboard = ({ setAuth }) => {
   //open close dashboards
   const [showScrollView, setShowScrollView] = useState(true);
   const [showScrollView2, setShowScrollView2] = useState(false);
-
+  const [showScrollView3, setShowScrollView3] = useState(false);
   const onPress = () => {
     // toggle true or false
 
     setShowScrollView(true);
     setShowScrollView2(false);
+    setShowScrollView3(false);
   };
 
   const onPress2 = () => {
@@ -24,6 +25,15 @@ const Dashboard = ({ setAuth }) => {
 
     setShowScrollView(false);
     setShowScrollView2(true);
+    setShowScrollView3(false);
+  };
+
+  const onPress3 = () => {
+    // toggle true or false
+
+    setShowScrollView(false);
+    setShowScrollView2(false);
+    setShowScrollView3(true);
   };
   //---------------------------------------
   const choseEmployee = () => {};
@@ -167,7 +177,8 @@ const Dashboard = ({ setAuth }) => {
           class="navbar-brand bg-dark col-sm-3 col-md-2 mr-0"
           href="/dashboard"
         >
-          Diploma!
+          <img alt="Qries" src="https://ticketeasy-software.com/wp-content/uploads/2020/02/New-logo.png"
+         width="200" height="70"/>
         </a>
         <h1 class="text-white text-right">Welcome User {name}</h1>
         <ul class="navbar-nav px-3">
@@ -181,9 +192,9 @@ const Dashboard = ({ setAuth }) => {
 
       <div class="container-fluid">
         <div class="row">
-          <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <nav class="col-md-2 d-none d-md-block bg-light sidebar mt-5">
             <div class="sidebar-sticky">
-              <ul class="nav flex-column mt-3 ml-2">
+              <ul class="nav flex-column mt-5 ml-2">
                 <li class="nav-item">
                   <a class="nav-link" href="#" onClick={onPress}>
                     <svg
@@ -227,7 +238,7 @@ const Dashboard = ({ setAuth }) => {
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="#" onClick={onPress3}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -245,28 +256,7 @@ const Dashboard = ({ setAuth }) => {
                       <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                       <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                     </svg>
-                    Customers
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-bar-chart-2"
-                    >
-                      <line x1="18" y1="20" x2="18" y2="10"></line>
-                      <line x1="12" y1="20" x2="12" y2="4"></line>
-                      <line x1="6" y1="20" x2="6" y2="14"></line>
-                    </svg>
-                    Reports
+                    Employees
                   </a>
                 </li>
               </ul>
@@ -289,6 +279,7 @@ const Dashboard = ({ setAuth }) => {
 
             <div> {showScrollView ? <List_User_Tickets /> : null} </div>
             <div> {showScrollView2 ? <List_User_Tickets_Closed /> : null} </div>
+            <div> {showScrollView3 ? <List_Employees_User /> : null} </div>
           </main>
         </div>
       </div>

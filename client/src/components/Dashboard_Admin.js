@@ -1,22 +1,27 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 
 //components
 
 import List_Admin_Tickets from "./List_Admin_Tickets";
 import List_Admin_Tickets_Closed from "./List_Admin_Tickets_Closed";
+import List_Users from "./List_Users";
+import List_Employees from "./List_Employees";
 
 const Dashboard_Admin = ({ setAuth }) => {
   //open close dashboards
   const [showScrollView, setShowScrollView] = useState(true);
   const [showScrollView2, setShowScrollView2] = useState(false);
+  const [showScrollView3, setShowScrollView3] = useState(false);
+  const [showScrollView4, setShowScrollView4] = useState(false);
 
   const onPress = () => {
     // toggle true or false
 
     setShowScrollView(true);
     setShowScrollView2(false);
+    setShowScrollView3(false);
+    setShowScrollView4(false);
   };
 
   const onPress2 = () => {
@@ -24,6 +29,26 @@ const Dashboard_Admin = ({ setAuth }) => {
 
     setShowScrollView(false);
     setShowScrollView2(true);
+    setShowScrollView3(false);
+    setShowScrollView4(false);
+  };
+
+  const onPress3 = () => {
+    // toggle true or false
+
+    setShowScrollView(false);
+    setShowScrollView2(false);
+    setShowScrollView3(true);
+    setShowScrollView4(false);
+  };
+
+  const onPress4 = () => {
+    // toggle true or false
+
+    setShowScrollView(false);
+    setShowScrollView2(false);
+    setShowScrollView3(false);
+    setShowScrollView4(true);
   };
   //---------------------------------------
   const choseEmployee = () => {};
@@ -68,10 +93,13 @@ const Dashboard_Admin = ({ setAuth }) => {
 
   const getIssues = async () => {
     try {
-      const response = await fetch("http://localhost:5000/dashboard_admin/issues/", {
-        method: "GET",
-        headers: { token: localStorage.token },
-      });
+      const response = await fetch(
+        "http://localhost:5000/dashboard_admin/issues/",
+        {
+          method: "GET",
+          headers: { token: localStorage.token },
+        }
+      );
 
       const jsonData = await response.json();
 
@@ -91,11 +119,14 @@ const Dashboard_Admin = ({ setAuth }) => {
       myHeaders.append("token", localStorage.token);
 
       const body = { info, id_employee, id_issue, priority };
-      const response = await fetch("http://localhost:5000/dashboard_admin/tickets", {
-        method: "POST",
-        headers: myHeaders,
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "http://localhost:5000/dashboard_admin/tickets",
+        {
+          method: "POST",
+          headers: myHeaders,
+          body: JSON.stringify(body),
+        }
+      );
       const parseResponse = await response.json();
 
       console.log(parseResponse);
@@ -161,7 +192,8 @@ const Dashboard_Admin = ({ setAuth }) => {
           class="navbar-brand bg-dark col-sm-3 col-md-2 mr-0"
           href="/dashboard_admin"
         >
-          Diploma!
+          <img alt="Qries" src="https://ticketeasy-software.com/wp-content/uploads/2020/02/New-logo.png"
+         width="200" height="70"/>
         </a>
         <h1 class="text-white text-right">Welcome Admin {name}</h1>
         <ul class="navbar-nav px-3">
@@ -221,7 +253,7 @@ const Dashboard_Admin = ({ setAuth }) => {
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="#" onClick={onPress3}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -239,11 +271,12 @@ const Dashboard_Admin = ({ setAuth }) => {
                       <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                       <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                     </svg>
-                    Customers
+                    Users
                   </a>
                 </li>
+
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="#" onClick={onPress4}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -254,18 +287,17 @@ const Dashboard_Admin = ({ setAuth }) => {
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      class="feather feather-bar-chart-2"
+                      class="feather feather-users"
                     >
-                      <line x1="18" y1="20" x2="18" y2="10"></line>
-                      <line x1="12" y1="20" x2="12" y2="4"></line>
-                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="9" cy="7" r="4"></circle>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                     </svg>
-                    Reports
+                    Employees
                   </a>
                 </li>
               </ul>
-
-              
             </div>
           </nav>
 
@@ -273,15 +305,17 @@ const Dashboard_Admin = ({ setAuth }) => {
             <div class="btn-toolbar mb-2 mb-md-0"></div>
 
             <div> {showScrollView ? <List_Admin_Tickets /> : null} </div>
-            <div> {showScrollView2 ? <List_Admin_Tickets_Closed /> : null} </div>
+            <div>
+              {" "}
+              {showScrollView2 ? <List_Admin_Tickets_Closed /> : null}{" "}
+            </div>
+            <div> {showScrollView3 ? <List_Users /> : null}</div>
+            <div> {showScrollView4 ? <List_Employees /> : null}</div>
           </main>
         </div>
       </div>
-
-      
     </Fragment>
   );
 };
-
 
 export default Dashboard_Admin;

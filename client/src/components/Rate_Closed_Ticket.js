@@ -3,8 +3,7 @@ import { toast } from "react-toastify";
 const Rate_Closed_Ticket = ({ setAuth, ticket }) => {
   //edit description function
 
-  //const [info, setInfo] = useState(ticket.ticket_information);
-  //const [priority, setPriority] = useState(ticket.ticket_priority);
+
   const [rating, setRating] = useState(ticket.ticket_rating);
 
   const updateDescription = async (e) => {

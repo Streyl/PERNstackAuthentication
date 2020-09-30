@@ -1,6 +1,4 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { toast } from "react-toastify";
-import moment from "moment";
 
 import Close_Admin_Ticket from "./Close_Admin_Ticket";
 import Open_Admin_Ticket from "./Open_Admin_Ticket";
