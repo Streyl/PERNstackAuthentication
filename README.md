@@ -4,5 +4,5 @@ Check the name of the database nad if it exists.
 
 To start the program u have to open 2 terminals
 
-terminal1: \server : nodemon start 
-terminal2: \client : npm start
+terminal1: in \server : nodemon start 
+terminal2: in \client : npm start
