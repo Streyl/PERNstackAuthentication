@@ -210,7 +210,7 @@ const Dashboard_Admin = ({ setAuth }) => {
           <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
               <ul class="nav flex-column mt-3 ml-2">
-                <li class="nav-item">
+                <li class="nav-item mt-5">
                   <a class="nav-link" href="#" onClick={onPress}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
