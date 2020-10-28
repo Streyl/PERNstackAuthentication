@@ -45,3 +45,15 @@ issue_id BIGSERIAL PRIMARY KEY,
 issue_type VARCHAR(255) NOT NULL,
 issue_information VARCHAR(255) NOT NULL
 );
+
+--Premade Issues
+INSERT INTO issues (issue_type, issue_information) VALUES ( 'Software problem', 'OS: WIndows 10');
+INSERT INTO issues (issue_type, issue_information) VALUES ( 'Software problem', 'OS: WIndows 7');
+INSERT INTO issues (issue_type, issue_information) VALUES ( 'Hardware problem', 'Lenovo laptop');
+INSERT INTO issues (issue_type, issue_information) VALUES ( 'Hardware problem', 'HP laptop');
+INSERT INTO issues (issue_type, issue_information) VALUES ( 'Hardware problem', 'Dell laptop');
+INSERT INTO issues (issue_type, issue_information) VALUES ( 'Internet connection problem', 'Pleas tell us the error u got');
+INSERT INTO issues (issue_type, issue_information) VALUES ( 'Server problem', 'Oracle servers');
+
+--Premade Employee
+INSERT INTO employees (employee_first_name, employee_email, employee_password, employee_second_name, employee_phone_number, employee_position) VALUES ('Test','test12345@gmail.com','$2b$10$4U16rMbsgq/td8fYRpDmceUOs.2LvetTv7dbvqSTiJsP64dygTH32','Tester','123456789','Tester');
